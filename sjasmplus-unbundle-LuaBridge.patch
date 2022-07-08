@@ -1,0 +1,41 @@
+From 7f01cf5bde7f570f0f2e1137c9a2e5bb351c21a7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Dan=20Hor=C3=A1k?= <dan@danny.cz>
+Date: Fri, 8 Jul 2022 21:52:57 +0200
+Subject: [PATCH] unbundle LuaBridge
+
+---
+ CMakeLists.txt | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5ab07d6..f490780 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -10,7 +10,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_P
+ project(sjasmplus)
+ set(MY_LUA_INCLUDE_DIR "lua5.4")
+ set(MY_LUA_LIBRARY "lua5.4")
+-set(LUABRIDGE_DIR "LuaBridge/Source")
+ set(UNIT_TESTS_DIR "cpp-src-tests")
+ set(UNITTESTPP_DIR "unittest-cpp")
+ 
+@@ -66,8 +65,6 @@ if(ADD_UNIT_TESTS)
+ endif(ADD_UNIT_TESTS)
+ 
+ if(ENABLE_LUA)
+-	add_subdirectory(${LUABRIDGE_DIR})
+-
+ 	message(STATUS "Looking for Lua 5.4")
+ 
+ 	if(SYSTEM_LUA)
+@@ -111,7 +108,6 @@ if(ENABLE_LUA)
+ 	target_link_libraries(
+ 		${PROJECT_NAME}
+ 		${LUA_LIBRARY}
+-		LuaBridge
+ 	)
+ 	if(NOT WIN32)
+ 		find_package(LibDL)
+-- 
+2.36.1
+
