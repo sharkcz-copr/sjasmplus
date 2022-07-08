@@ -39,7 +39,7 @@ LANG=en_US.UTF-8 make tests
 
 %files
 %license LICENSE.md
-%doc README.md
+%doc README.md CHANGELOG.md
 %{_bindir}/%{name}
 
 
