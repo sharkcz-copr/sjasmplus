@@ -1,5 +1,5 @@
 Name:           sjasmplus
-Version:        1.20.0
+Version:        1.20.1
 Release:        1%{?dist}
 Summary:        Cross-assembler for Z80 CPU
 
@@ -44,5 +44,8 @@ LANG=en_US.UTF-8 make tests
 
 
 %changelog
+* Fri Jul 29 2022 Dan Horák <dan@danny.cz> - 1.20.1-1
+- updated to 1.20.1
+
 * Fri Jul 08 2022 Dan Horák <dan@danny.cz> - 1.20.0-1
 - initial Fedora version
