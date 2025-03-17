@@ -1,5 +1,5 @@
 Name:           sjasmplus
-Version:        1.20.3
+Version:        1.21.0
 Release:        1%{?dist}
 Summary:        Cross-assembler for Z80 CPU
 
@@ -44,6 +44,9 @@ LANG=en_US.UTF-8 make tests
 
 
 %changelog
+* Mon Mar 17 2025 Dan Horák <dan@danny.cz> - 1.21.0-1
+- updated to 1.21.0
+
 * Wed Jun 28 2023 Dan Horák <dan@danny.cz> - 1.20.3-1
 - updated to 1.20.3
 
