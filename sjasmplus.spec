@@ -1,5 +1,5 @@
 Name:           sjasmplus
-Version:        1.21.0
+Version:        1.21.1
 Release:        1%{?dist}
 Summary:        Cross-assembler for Z80 CPU
 
@@ -7,6 +7,7 @@ License:        MIT
 URL:            https://github.com/z00m128/sjasmplus
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         %{name}-unbundle-LuaBridge.patch
+Patch1:         %{name}-lua54.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -44,6 +45,9 @@ LANG=en_US.UTF-8 make tests
 
 
 %changelog
+* Sat Jan 17 2026 Dan Horák <dan@danny.cz> - 1.21.1-1
+- updated to 1.21.1
+
 * Mon Mar 17 2025 Dan Horák <dan@danny.cz> - 1.21.0-1
 - updated to 1.21.0
 

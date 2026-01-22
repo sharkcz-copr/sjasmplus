@@ -1,0 +1,79 @@
+From 71a50a26649498af5aca464f22af286b8e771a7a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Dan=20Hor=C3=A1k?= <dan@danny.cz>
+Date: Sat, 17 Jan 2026 20:33:56 +0100
+Subject: [PATCH] revert to Lua 5.4+
+
+partially reverts commit ffb37b68d2a8ae8919c189634e243d742c629668
+---
+ CMakeLists.txt                                   | 6 +++---
+ tests/lua_examples/trivial/lua_standard_libs.asm | 4 ++--
+ tests/parsing/numeric_constants_invalid.lst      | 8 ++++----
+ 3 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c685f79..9115da7 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -65,14 +65,14 @@ if(ADD_UNIT_TESTS)
+ endif(ADD_UNIT_TESTS)
+ 
+ if(ENABLE_LUA)
+-	message(STATUS "Looking for Lua 5.5")
++	message(STATUS "Looking for Lua 5.4+")
+ 
+ 	if(SYSTEM_LUA)
+-		find_package(Lua "5.5" REQUIRED)
++		find_package(Lua "5.4" REQUIRED)
+ 	endif(SYSTEM_LUA)
+ 
+ 	if(LUA_FOUND)
+-		message(STATUS "Looking for Lua 5.5 - found: ${LUA_LIBRARIES}")
++		message(STATUS "Looking for Lua 5.4 - found: ${LUA_LIBRARIES}")
+ 		include_directories(${LUA_INCLUDE_DIR})
+ 		add_definitions(-DUSE_LUA_SO_LIB)
+ 	else(LUA_FOUND)
+diff --git a/tests/lua_examples/trivial/lua_standard_libs.asm b/tests/lua_examples/trivial/lua_standard_libs.asm
+index f7ad601..51f1b8b 100644
+--- a/tests/lua_examples/trivial/lua_standard_libs.asm
++++ b/tests/lua_examples/trivial/lua_standard_libs.asm
+@@ -1,6 +1,6 @@
+ ;
+ ; check if standard Lua libraries are loaded
+-; see Lua 5.5 manual for full details: https://www.lua.org/manual/5.5/manual.html#6
++; see Lua 5.4 manual for full details: https://www.lua.org/manual/5.4/manual.html#6
+ ;
+     LUA
+         -- base lib
+@@ -8,7 +8,7 @@
+         assert(2 == tonumber("10", 2))
+         assert(43794 == tonumber("ab12", 16))
+         assert("1234" == tostring(1234))
+-        assert("Lua 5.5" == _VERSION)
++        assert("Lua 5.4" == _VERSION)
+         assert("nil" == type(nil))
+         -- string manipulation
+         assert(0x42 == string.byte("ABC", 2))
+diff --git a/tests/parsing/numeric_constants_invalid.lst b/tests/parsing/numeric_constants_invalid.lst
+index a20b9ab..db16133 100644
+--- a/tests/parsing/numeric_constants_invalid.lst
++++ b/tests/parsing/numeric_constants_invalid.lst
+@@ -76,12 +76,12 @@ numeric_constants_invalid.asm(43): warning[decimaln]: decimal part is ignored: 0
+ 48    0028 ~                    _pc("db " .. 36/7 .. " , " .. 36//7)    -- "36//7" is integer variant of "36/7"
+ numeric_constants_invalid.asm(45): warning[decimalz]: [LUA] decimal part is ignored: 128.0 , 128
+ 49    0028 80 80        db 128.0 , 128
+-numeric_constants_invalid.asm(46): warning[decimaln]: [LUA] decimal part is ignored: 128.00088723146598 , 128
+-49    002A 80 80        db 128.00088723146598 , 128
++numeric_constants_invalid.asm(46): warning[decimaln]: [LUA] decimal part is ignored: 128.00088723147 , 128
++49    002A 80 80        db 128.00088723147 , 128
+ numeric_constants_invalid.asm(47): warning[decimalz]: [LUA] decimal part is ignored: 5.0 , 5
+ 49    002C 05 05        db 5.0 , 5
+-numeric_constants_invalid.asm(48): warning[decimaln]: [LUA] decimal part is ignored: 5.1428571428571432 , 5
+-49    002E 05 05        db 5.1428571428571432 , 5
++numeric_constants_invalid.asm(48): warning[decimaln]: [LUA] decimal part is ignored: 5.1428571428571 , 5
++49    002E 05 05        db 5.1428571428571 , 5
+ 49    0030                  ENDLUA
+ numeric_constants_invalid.asm(50): warning[decimalz]: decimal part is ignored: 12.0'0
+ 50    0030 0C               DB      12.0'0
+-- 
+2.52.0
+
