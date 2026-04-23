@@ -1,5 +1,5 @@
 Name:           sjasmplus
-Version:        1.21.1
+Version:        1.23.0
 Release:        1%{?dist}
 Summary:        Cross-assembler for Z80 CPU
 
@@ -21,7 +21,13 @@ Command-line cross-compiler of assembly language for Z80 CPU.
 
 
 %prep
-%autosetup -p1
+%autosetup -N
+
+%if 0%{?fedora} >= 45
+%autopatch -p1 0
+%else
+%autopatch -p1
+%endif
 
 
 %build
@@ -34,8 +40,7 @@ Command-line cross-compiler of assembly language for Z80 CPU.
 
 
 %check
-cd %__cmake_builddir
-LANG=en_US.UTF-8 make tests
+LANG=en_US.UTF-8 %cmake_build -t tests
 
 
 %files
@@ -45,6 +50,9 @@ LANG=en_US.UTF-8 make tests
 
 
 %changelog
+* Thu Apr 23 2026 Dan Horák <dan@danny.cz> - 1.23.0-1
+- updated to 1.23.0
+
 * Sat Jan 17 2026 Dan Horák <dan@danny.cz> - 1.21.1-1
 - updated to 1.21.1
 
