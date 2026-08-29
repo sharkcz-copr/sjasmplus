@@ -1,13 +1,12 @@
 Name:           sjasmplus
-Version:        1.23.0
+Version:        1.24.0
 Release:        1%{?dist}
 Summary:        Cross-assembler for Z80 CPU
 
 License:        MIT
 URL:            https://github.com/z00m128/sjasmplus
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         %{name}-unbundle-LuaBridge.patch
-Patch1:         %{name}-lua54.patch
+Patch0:         %{name}-fedora.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -21,13 +20,7 @@ Command-line cross-compiler of assembly language for Z80 CPU.
 
 
 %prep
-%autosetup -N
-
-%if 0%{?fedora} >= 45
-%autopatch -p1 0
-%else
-%autopatch -p1
-%endif
+%autosetup -p1
 
 
 %build
@@ -50,6 +43,9 @@ LANG=en_US.UTF-8 %cmake_build -t tests
 
 
 %changelog
+* Sat Aug 29 2026 Dan Horák <dan@danny.cz> - 1.24.0-1
+- updated to 1.24.0
+
 * Thu Apr 23 2026 Dan Horák <dan@danny.cz> - 1.23.0-1
 - updated to 1.23.0
 

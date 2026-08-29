@@ -1,0 +1,78 @@
+From 222123932193af843b6537bce6eeb960c7cba32e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Dan=20Hor=C3=A1k?= <dan@danny.cz>
+Date: Fri, 8 Jul 2022 21:52:57 +0200
+Subject: [PATCH 1/2] unbundle LuaBridge
+
+---
+ CMakeLists.txt | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1f10d61..c685f79 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -10,7 +10,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_P
+ project(sjasmplus)
+ set(MY_LUA_INCLUDE_DIR "lua5.5")
+ set(MY_LUA_LIBRARY "lua5.5")
+-set(LUABRIDGE_DIR "LuaBridge/Source")
+ set(UNIT_TESTS_DIR "cpp-src-tests")
+ set(UNITTESTPP_DIR "unittest-cpp")
+ 
+@@ -66,8 +65,6 @@ if(ADD_UNIT_TESTS)
+ endif(ADD_UNIT_TESTS)
+ 
+ if(ENABLE_LUA)
+-	add_subdirectory(${LUABRIDGE_DIR} EXCLUDE_FROM_ALL)
+-
+ 	message(STATUS "Looking for Lua 5.5")
+ 
+ 	if(SYSTEM_LUA)
+@@ -109,7 +106,6 @@ if(ENABLE_LUA)
+ 	target_link_libraries(
+ 		${PROJECT_NAME}
+ 		${LUA_LIBRARY}
+-		LuaBridge
+ 	)
+ 	if(NOT WIN32)
+ 		find_package(LibDL)
+-- 
+2.55.0
+
+
+From b5c7f3daa6c788be2b27c4c63b05a1dea462abe6 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Dan=20Hor=C3=A1k?= <dan@danny.cz>
+Date: Sat, 17 Jan 2026 20:33:56 +0100
+Subject: [PATCH 2/2] revert to Lua 5.4+
+
+- partially reverts commit ffb37b68d2a8ae8919c189634e243d742c629668
+- tests have been made compatible with Lua 5.4 recently
+---
+ CMakeLists.txt | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c685f79..9115da7 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -65,14 +65,14 @@ if(ADD_UNIT_TESTS)
+ endif(ADD_UNIT_TESTS)
+ 
+ if(ENABLE_LUA)
+-	message(STATUS "Looking for Lua 5.5")
++	message(STATUS "Looking for Lua 5.4+")
+ 
+ 	if(SYSTEM_LUA)
+-		find_package(Lua "5.5" REQUIRED)
++		find_package(Lua "5.4" REQUIRED)
+ 	endif(SYSTEM_LUA)
+ 
+ 	if(LUA_FOUND)
+-		message(STATUS "Looking for Lua 5.5 - found: ${LUA_LIBRARIES}")
++		message(STATUS "Looking for Lua 5.4 - found: ${LUA_LIBRARIES}")
+ 		include_directories(${LUA_INCLUDE_DIR})
+ 		add_definitions(-DUSE_LUA_SO_LIB)
+ 	else(LUA_FOUND)
+-- 
+2.55.0
+
